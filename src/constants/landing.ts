@@ -3,10 +3,11 @@ export const HERO = {
   headline1: 'Every missed call',
   headline2: 'is a missed job.',
   sub: "Our AI answers your calls when you're on the tools, captures the job details, and texts you instantly. No app. No hassle. Just more work booked.",
-  cta: 'Start Free Trial',
+  cta: 'Claim 14-Day Free Trial',
   secondary: 'See how it works',
-  demoNumber: '+447412340214',      
-  demoNumberDisplay: '074 1234 0214', 
+  demoNumber: '+447412340214',
+  demoNumberDisplay: '074 1234 0214',
+  demoPrompt: "Pretend you've got a burst pipe. Hang up. We'll text you the result in seconds.", 
 }
 
 export const TRUST_ITEMS = [
