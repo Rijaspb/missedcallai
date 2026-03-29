@@ -1,3 +1,5 @@
+import 'server-only'
+
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { supabaseAdmin } from '@/lib/supabase/server'
@@ -25,8 +27,6 @@ const VapiPayloadSchema = z.object({
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-
-    console.log('VAPI TYPE:', body?.message?.type)
 
     if (body?.message?.type !== 'end-of-call-report') {
       return NextResponse.json({ received: true })
