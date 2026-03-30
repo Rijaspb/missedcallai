@@ -51,6 +51,41 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ received: true })
     }
 
+    //Demo Call
+    const isDemoCall = twilioNumberCalled === process.env.DEMO_TWILIO_NUMBER
+
+    if (isDemoCall) {
+      if (callerNumber === 'Unknown') {
+        console.log('Demo call with unknown caller — skipping')
+        return NextResponse.json({ received: true })
+      }
+
+      await supabaseAdmin.from('demo_calls').insert({
+        caller_number: callerNumber,
+        summary,
+        duration_seconds: Math.round(duration),
+        vapi_call_id: vapiCallId,
+      })
+
+      const demoMessage = [
+        `Thanks for trying MissedCallAI!`,
+        ``,
+        `Here's what our AI captured from your call:`,
+        ``,
+        summary,
+        ``,
+        `Ready to never miss a job? Start your free 14-day trial:`,
+        `https://missedcallai.co.uk`,
+        ``,
+        `— MissedCallAI`,
+      ].join('\n')
+
+      await sendLeadSMS(callerNumber, demoMessage)
+
+      console.log('Demo call handled — SMS sent to:', callerNumber)
+      return NextResponse.json({ success: true })
+    }
+
     const { data: customer, error } = await supabaseAdmin
       .from('customers')
       .select('*')
