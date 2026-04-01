@@ -27,7 +27,7 @@ export function Navbar() {
           </Link>
 
           <Link
-            href="/#pricing"
+            href="/signup"
             className="text-xs font-bold uppercase tracking-widest px-5 py-2.5 bg-(--color-accent) text-black hover:opacity-80"
           >
             Start Free Trial
@@ -60,7 +60,7 @@ export function Navbar() {
             </Link>
 
             <Link
-              href="/#pricing"
+              href="/signup"
               onClick={() => setOpen(false)}
               className="w-full text-center text-sm font-bold uppercase tracking-widest px-4 py-3 rounded-lg bg-(--color-accent) text-black"
             >

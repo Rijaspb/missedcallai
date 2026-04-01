@@ -1,19 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { updateSession } from '@/lib/supabase/proxy' 
 
-export function proxy(req: NextRequest) {
-  const { pathname } = req.nextUrl
+export async function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl
 
-  // Protect cron routes with secret header
   if (pathname.startsWith('/api/cron')) {
-    const authHeader = req.headers.get('authorization')
-    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    const cronSecret = process.env.CRON_SECRET
+    if (!cronSecret) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+    const authHeader = request.headers.get('authorization')
+    if (authHeader !== `Bearer ${cronSecret}`) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    return NextResponse.next()
   }
 
-  return NextResponse.next()
+  return updateSession(request)  
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/api/cron/:path*'],
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 }
