@@ -41,21 +41,22 @@ export default function OnboardingForm({ defaultPhone }: Props) {
     setError(null)
 
     const res = await fetch('/api/onboarding', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
     })
 
+    const data = await res.json()
+
     if (!res.ok) {
-      const data = await res.json()
-      setError(data.error ?? 'Something went wrong')
-      setLoading(false)
-      return
+        setError(data.error ?? 'Something went wrong')
+        setLoading(false)
+        return
     }
 
-    // Stripe comes next — placeholder redirect for now
-    window.location.href = '/dashboard'
-  }
+    // Redirect to Stripe Checkout
+    window.location.href = data.url
+    }
 
   const inputClass = "w-full px-4 py-3 text-sm border bg-transparent outline-none"
   const inputStyle = { borderColor: 'var(--color-border-2)', color: 'var(--color-text)' }
