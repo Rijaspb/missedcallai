@@ -8,6 +8,14 @@ export default async function DashboardPage() {
 
   if (!user) redirect('/signup')
 
+  const { data: customer } = await supabase
+    .from('customers')
+    .select('business_name')
+    .eq('auth_user_id', user.id)
+    .single()
+
+  if (!customer?.business_name) redirect('/onboarding')
+
   return (
     <main className="min-h-screen flex items-center justify-center px-6">
       <div className="text-center">
