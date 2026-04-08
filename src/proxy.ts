@@ -4,6 +4,10 @@ import { updateSession } from '@/lib/supabase/proxy'
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
+  if (pathname.startsWith('/api/webhooks')) {
+    return NextResponse.next()
+  }
+
   if (pathname.startsWith('/api/cron')) {
     const cronSecret = process.env.CRON_SECRET
     if (!cronSecret) {
