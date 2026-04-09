@@ -1,6 +1,7 @@
 import 'server-only'
 import { redirect } from 'next/navigation'
 import { createSSRClient } from '@/lib/supabase/ssr'
+import SignOutButton from './SignOutButton'
 
 export default async function DashboardPage() {
   const supabase = await createSSRClient()
@@ -22,9 +23,10 @@ export default async function DashboardPage() {
         <h1 className="font-display font-black uppercase text-4xl mb-4">
           Your <span style={{ color: 'var(--color-accent)' }}>dashboard</span>
         </h1>
-        <p style={{ color: 'var(--color-muted)' }}>
+        <p className="mb-8" style={{ color: 'var(--color-muted)' }}>
           Coming soon. You're signed in.
         </p>
+        <SignOutButton />
       </div>
     </main>
   )

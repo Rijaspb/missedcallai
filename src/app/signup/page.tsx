@@ -10,11 +10,18 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  function toE164(phone: string): string {
+    const digits = phone.replace(/\D/g, '')
+    if (digits.startsWith('44')) return `+${digits}`
+    if (digits.startsWith('0')) return `+44${digits.slice(1)}`
+    return `+44${digits}`
+  }
+
   async function handleSendOTP() {
     setLoading(true)
     setError(null)
     const supabase = createClient()
-    const { error } = await supabase.auth.signInWithOtp({ phone })
+    const { error } = await supabase.auth.signInWithOtp({ phone: toE164(phone) })
     if (error) setError(error.message)
     else setStep('otp')
     setLoading(false)
