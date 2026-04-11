@@ -20,10 +20,14 @@ export default function SignupPage() {
   async function handleSendOTP() {
     setLoading(true)
     setError(null)
+    const formatted = toE164(phone)
     const supabase = createClient()
-    const { error } = await supabase.auth.signInWithOtp({ phone: toE164(phone) })
-    if (error) setError(error.message)
-    else setStep('otp')
+    const { error } = await supabase.auth.signInWithOtp({ phone: formatted })
+    if (error) setError('Please enter a valid UK mobile number.')
+    else {
+      setPhone(formatted) 
+      setStep('otp')
+    }
     setLoading(false)
   }
 
@@ -32,11 +36,11 @@ export default function SignupPage() {
     setError(null)
     const supabase = createClient()
     const { error } = await supabase.auth.verifyOtp({
-      phone,
+      phone: toE164(phone),
       token: otp,
       type: 'sms',
     })
-    if (error) setError(error.message)
+    if (error) setError('Invalid code. Please try again.')
     else window.location.href = '/dashboard'
     setLoading(false)
   }
