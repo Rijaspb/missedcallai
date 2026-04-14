@@ -62,14 +62,14 @@ export const PRICING = {
   note: 'Cancel anytime. No contracts.',
   features: [
     'AI answers every missed call',
-    'Instant SMS or WhatsApp summary',
+    'Instant SMS summary (WhatsApp coming soon)',
     'Customised to your business name',
     'Unlimited calls',
     'UK-based phone number included',
     '14-day free trial',
   ],
   cta: 'Start Free Trial',
-  subNote: 'No card required to start your trial',
+  subNote: 'Card required. Cancel anytime — no questions asked.',
 }
 
 export const FAQS = [
