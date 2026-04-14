@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
 const NAV_LINKS = [
-  // { href: '/#how-it-works', label: 'How it works' },
-  // { href: '/#pricing', label: 'Pricing' },
   { href: '/contact', label: 'Contact' },
+  { href: '/privacy', label: 'Privacy Policy', external: true },
+  { href: '/terms', label: 'Terms of Service', external: true },
 ]
 
 export function Footer() {
@@ -28,7 +28,8 @@ export function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium uppercase tracking-[0.06em] text-[#444] hover:text-(--color-muted) transition-colors"
+                target={link.external ? '_blank' : undefined}
+                rel={link.external ? 'noopener noreferrer' : undefined}
               >
                 {link.label}
               </Link>
