@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import twilio from 'twilio'
 import { supabaseAdmin } from '@/lib/supabase/server'
-import { sendWelcomeEmail } from '@/lib/resend/welcome'
+import { sendWelcomeEmail, sendOwnerNotification } from '@/lib/resend/welcome'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 const twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID!, process.env.TWILIO_AUTH_TOKEN!)
@@ -110,6 +110,18 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     })
   } catch (err) {
     console.error('Welcome email failed (non-fatal):', err)
+  }
+
+  try {
+    await sendOwnerNotification({
+      businessName: customer.business_name ?? 'Unknown',
+      ownerName: customer.owner_name ?? 'Unknown',
+      email: customer.email ?? 'Unknown',
+      phone: customer.real_phone ?? 'Unknown',
+      twilioNumber,
+    })
+  } catch (err) {
+    console.error('Owner notification failed (non-fatal):', err)
   }
 
   console.log('Provisioned customer:', authUserId, twilioNumber)

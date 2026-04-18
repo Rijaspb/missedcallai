@@ -98,3 +98,66 @@ export async function sendWelcomeEmail({
     console.error(`[welcome] Resend error ${res.status}: ${body}`)
   }
 }
+
+export async function sendOwnerNotification({
+  businessName,
+  ownerName,
+  email,
+  phone,
+  twilioNumber,
+}: {
+  businessName: string
+  ownerName: string
+  email: string
+  phone: string
+  twilioNumber: string
+}) {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) return
+
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'MissedCallAI <noreply@missedcallai.co.uk>',
+      to: ['rijas@missedcallai.co.uk'],
+      subject: `🎉 New customer — ${businessName}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 560px; color: #1a1a1a;">
+          <h2>New customer signed up!</h2>
+          <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 20px 0;" />
+          <table style="width: 100%; font-size: 15px; border-collapse: collapse;">
+            <tr>
+              <td style="padding: 8px 0; color: #666; width: 140px;">Business</td>
+              <td style="padding: 8px 0; font-weight: 600;">${businessName}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; color: #666;">Owner</td>
+              <td style="padding: 8px 0;">${ownerName}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; color: #666;">Email</td>
+              <td style="padding: 8px 0;">${email}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; color: #666;">Phone</td>
+              <td style="padding: 8px 0;">${phone}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; color: #666;">Twilio number</td>
+              <td style="padding: 8px 0; color: #F97316; font-weight: 600;">${twilioNumber}</td>
+            </tr>
+          </table>
+        </div>
+      `,
+    }),
+  })
+
+  if (!res.ok) {
+    const body = await res.text()
+    console.error(`[owner notification] Resend error ${res.status}: ${body}`)
+  }
+}
