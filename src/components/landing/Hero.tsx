@@ -1,4 +1,5 @@
 import { HERO } from '@/constants/landing'
+import Link from 'next/link'
 
 export function Hero() {
   return (
@@ -45,8 +46,9 @@ export function Hero() {
     </div>
 
     <div className="flex flex-col sm:flex-row gap-3">
-      <button
-        className="text-sm font-bold uppercase tracking-widest px-8 py-4 transition-opacity hover:opacity-80"
+      <Link
+        href="/signup"
+        className="text-sm font-bold uppercase tracking-widest px-8 py-4 transition-opacity hover:opacity-80 text-center"
         style={{
           background: 'var(--color-accent)',
           color: '#0D0D0D',
@@ -54,7 +56,7 @@ export function Hero() {
         }}
       >
         Start free trial
-      </button>
+      </Link>
 
       <a
         href={`tel:${HERO.demoNumber}`}
