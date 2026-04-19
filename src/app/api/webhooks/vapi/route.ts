@@ -73,6 +73,7 @@ export async function POST(req: NextRequest) {
         `Here's what our AI captured from your call:`,
         ``,
         summary,
+        ...(recordingUrl ? [``, `🎧 Listen to your call: ${recordingUrl}`] : []),
         ``,
         `Ready to never miss a job? Start your free 14-day trial:`,
         `https://missedcallai.co.uk`,
@@ -113,6 +114,7 @@ export async function POST(req: NextRequest) {
       `From: ${callerNumber}`,
       ``,
       summary,
+      ...(recordingUrl ? [``, `🎧 Listen: ${recordingUrl}`] : []),
       ``,
       `— MissedCallAI`
     ].join('\n')
