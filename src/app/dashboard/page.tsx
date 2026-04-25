@@ -103,12 +103,12 @@ export default async function DashboardPage() {
                     className={`border-b border-white/5 ${i % 2 !== 0 ? 'bg-white/[0.02]' : ''}`}
                   >
                     <td className="px-4 py-3 text-[var(--color-muted)] whitespace-nowrap">
-                      {new Date(log.created_at).toLocaleString('en-GB', {
+                      {log.created_at ? new Date(log.created_at).toLocaleString('en-GB', {
                         day: '2-digit',
                         month: 'short',
                         hour: '2-digit',
                         minute: '2-digit',
-                      })}
+                      }) : '—'}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {log.caller_number_anonymised
