@@ -84,65 +84,101 @@ export default async function DashboardPage() {
             No calls yet. Once your AI answers a missed call, it'll appear here.
           </div>
         ) : (
-          <div className="border border-white/10 rounded-lg overflow-hidden">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/10 text-[var(--color-muted)] text-xs uppercase tracking-widest">
-                  <th className="text-left px-4 py-3">Date / Time</th>
-                  <th className="text-left px-4 py-3">Caller</th>
-                  <th className="text-left px-4 py-3">Duration</th>
-                  <th className="text-left px-4 py-3">Summary</th>
-                  <th className="text-left px-4 py-3">Recording</th>
-                  <th className="text-left px-4 py-3">SMS Sent</th>
-                </tr>
-              </thead>
-              <tbody>
-                {logs.map((log, i) => (
-                  <tr
-                    key={log.id}
-                    className={`border-b border-white/5 ${i % 2 !== 0 ? 'bg-white/[0.02]' : ''}`}
-                  >
-                    <td className="px-4 py-3 text-[var(--color-muted)] whitespace-nowrap">
+          <>
+            {/* Mobile: card list */}
+            <div className="flex flex-col gap-3 md:hidden">
+              {logs.map(log => (
+                <div key={log.id} className="border border-white/10 rounded-lg p-4 flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--color-muted)] text-xs">
                       {log.created_at ? new Date(log.created_at).toLocaleString('en-GB', {
-                        day: '2-digit',
-                        month: 'short',
-                        hour: '2-digit',
-                        minute: '2-digit',
+                        day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit',
                       }) : '—'}
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap">
+                    </span>
+                    {log.notification_sent && (
+                      <span className="text-[var(--color-accent)] text-xs font-bold">SMS ✓</span>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span>
                       {log.caller_number_anonymised
                         ? <span className="text-[var(--color-muted)]">Anonymised</span>
                         : (log.caller_number ?? '—')}
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap">
+                    </span>
+                    <span className="text-[var(--color-muted)] text-xs">
                       {log.duration_seconds != null
                         ? `${Math.floor(log.duration_seconds / 60)}m ${log.duration_seconds % 60}s`
                         : '—'}
-                    </td>
-                    <td className="px-4 py-3 max-w-xs">
-                      <SummaryCell summary={log.summary} />
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      {log.recording_url
-                        ? <a href={log.recording_url} target="_blank" rel="noopener noreferrer" className="text-[var(--color-accent)] hover:underline text-xs font-medium">▶ Play</a>
-                        : <span className="text-[var(--color-muted)]">—</span>}
-                    </td>
-                    <td className="px-4 py-3">
-                      {log.notification_sent
-                        ? <span className="text-[var(--color-accent)] font-bold">✓</span>
-                        : <span className="text-[var(--color-muted)]">—</span>}
-                    </td>
+                    </span>
+                  </div>
+                  <div className="text-sm">
+                    <SummaryCell summary={log.summary} />
+                  </div>
+                  {log.recording_url && (
+                    <a href={log.recording_url} target="_blank" rel="noopener noreferrer" className="text-[var(--color-accent)] text-xs font-medium hover:underline">▶ Play Recording</a>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop: table */}
+            <div className="hidden md:block border border-white/10 rounded-lg overflow-hidden">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-white/10 text-[var(--color-muted)] text-xs uppercase tracking-widest">
+                    <th className="text-left px-4 py-3">Date / Time</th>
+                    <th className="text-left px-4 py-3">Caller</th>
+                    <th className="text-left px-4 py-3">Duration</th>
+                    <th className="text-left px-4 py-3">Summary</th>
+                    <th className="text-left px-4 py-3">Recording</th>
+                    <th className="text-left px-4 py-3">SMS Sent</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            {totalCalls > 20 && (
-              <p className="px-4 py-3 text-xs text-[var(--color-muted)] border-t border-white/5">
-                Showing most recent 20 of {totalCalls} calls
-              </p>
-            )}
-          </div>
+                </thead>
+                <tbody>
+                  {logs.map((log, i) => (
+                    <tr
+                      key={log.id}
+                      className={`border-b border-white/5 ${i % 2 !== 0 ? 'bg-white/[0.02]' : ''}`}
+                    >
+                      <td className="px-4 py-3 text-[var(--color-muted)] whitespace-nowrap">
+                        {log.created_at ? new Date(log.created_at).toLocaleString('en-GB', {
+                          day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit',
+                        }) : '—'}
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {log.caller_number_anonymised
+                          ? <span className="text-[var(--color-muted)]">Anonymised</span>
+                          : (log.caller_number ?? '—')}
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {log.duration_seconds != null
+                          ? `${Math.floor(log.duration_seconds / 60)}m ${log.duration_seconds % 60}s`
+                          : '—'}
+                      </td>
+                      <td className="px-4 py-3 max-w-xs">
+                        <SummaryCell summary={log.summary} />
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {log.recording_url
+                          ? <a href={log.recording_url} target="_blank" rel="noopener noreferrer" className="text-[var(--color-accent)] hover:underline text-xs font-medium">▶ Play</a>
+                          : <span className="text-[var(--color-muted)]">—</span>}
+                      </td>
+                      <td className="px-4 py-3">
+                        {log.notification_sent
+                          ? <span className="text-[var(--color-accent)] font-bold">✓</span>
+                          : <span className="text-[var(--color-muted)]">—</span>}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {totalCalls > 20 && (
+                <p className="px-4 py-3 text-xs text-[var(--color-muted)] border-t border-white/5">
+                  Showing most recent 20 of {totalCalls} calls
+                </p>
+              )}
+            </div>
+          </>
         )}
       </div>
 

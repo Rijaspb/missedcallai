@@ -20,7 +20,7 @@ export default function SummaryCell({ summary }: { summary: string | null }) {
           onClick={() => setOpen(false)}
         >
           <div
-            className="bg-[var(--color-bg)] border border-white/10 rounded-lg p-6 max-w-lg w-full"
+            className="bg-[var(--color-bg)] border border-white/10 rounded-2xl p-6 w-full max-w-lg"
             onClick={e => e.stopPropagation()}
           >
             <h3 className="font-display font-black uppercase text-lg mb-4">
@@ -31,7 +31,7 @@ export default function SummaryCell({ summary }: { summary: string | null }) {
             </p>
             <button
               onClick={() => setOpen(false)}
-              className="mt-6 text-xs text-[var(--color-muted)] hover:text-white transition-colors"
+              className="mt-6 w-full py-3 text-sm border border-white/10 rounded-lg hover:border-white/30 transition-colors"
             >
               Close
             </button>
