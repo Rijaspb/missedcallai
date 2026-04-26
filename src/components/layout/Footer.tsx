@@ -4,6 +4,7 @@ const NAV_LINKS = [
   { href: '/contact', label: 'Contact' },
   { href: '/privacy', label: 'Privacy Policy', external: true },
   { href: '/terms', label: 'Terms of Service', external: true },
+  { href: '/dpa', label: 'DPA', external: true },
 ]
 
 export function Footer() {
