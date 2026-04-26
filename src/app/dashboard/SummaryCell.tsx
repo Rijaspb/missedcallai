@@ -9,7 +9,7 @@ export default function SummaryCell({ summary }: { summary: string | null }) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-left line-clamp-2 text-[var(--color-muted)] hover:text-white transition-colors cursor-pointer"
+        className="text-left line-clamp-2 text-(--color-muted) hover:text-white transition-colors cursor-pointer"
       >
         {text}
       </button>
@@ -20,13 +20,13 @@ export default function SummaryCell({ summary }: { summary: string | null }) {
           onClick={() => setOpen(false)}
         >
           <div
-            className="bg-[var(--color-bg)] border border-white/10 rounded-2xl p-6 w-full max-w-lg"
+            className="bg-(--color-bg) border border-white/10 rounded-2xl p-6 w-full max-w-lg"
             onClick={e => e.stopPropagation()}
           >
             <h3 className="font-display font-black uppercase text-lg mb-4">
-              Call <span className="text-[var(--color-accent)]">Summary</span>
+              Call <span className="text-(--color-accent)">Summary</span>
             </h3>
-            <p className="text-[var(--color-muted)] text-sm leading-relaxed whitespace-pre-wrap">
+            <p className="text-(--color-muted) text-sm leading-relaxed whitespace-pre-wrap">
               {text}
             </p>
             <button
