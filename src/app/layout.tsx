@@ -25,6 +25,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://missedcallai.co.uk',
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
   icons: {
     icon: [
       { url: '/favicon.ico' },
@@ -62,8 +67,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               description: 'AI missed call answering service for UK tradespeople',
               url: 'https://missedcallai.co.uk',
               applicationCategory: 'BusinessApplication',
+              operatingSystem: 'Web',
               offers: {
                 '@type': 'Offer',
+                url: 'https://missedcallai.co.uk/signup',
                 price: '49',
                 priceCurrency: 'GBP',
                 priceSpecification: {

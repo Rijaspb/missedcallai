@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/dashboard', '/onboarding', '/welcome', '/signup'],
+      disallow: ['/dashboard', '/onboarding', '/welcome', '/signup', '/api/'],
     },
     sitemap: 'https://missedcallai.co.uk/sitemap.xml',
   }
