@@ -18,12 +18,25 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-4">
+          <Link
+            href="/tools/missed-call-calculator"
+            className="text-sm font-semibold uppercase tracking-wide text-(--color-muted) hover:text-(--color-text) px-3 py-2"
+          >
+            Free Tool
+          </Link>
           <Link
             href="/contact"
             className="text-sm font-semibold uppercase tracking-wide text-(--color-muted) hover:text-(--color-text) px-3 py-2"
           >
             Contact
+          </Link>
+
+          <Link
+            href="/signup"
+            className="text-sm font-semibold uppercase tracking-wide text-(--color-muted) hover:text-(--color-text) px-3 py-2"
+          >
+            Log in
           </Link>
 
           <Link
@@ -52,11 +65,27 @@ export function Navbar() {
         <div className="md:hidden px-5 pb-5 pt-2 border-t border-(--color-border) bg-(--color-bg) animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-3">
             <Link
+              href="/tools/missed-call-calculator"
+              onClick={() => setOpen(false)}
+              className="w-full text-center text-sm font-semibold uppercase tracking-wide text-(--color-text) px-4 py-3 rounded-lg border border-(--color-border)"
+            >
+              Free Tool
+            </Link>
+
+            <Link
               href="/contact"
               onClick={() => setOpen(false)}
               className="w-full text-center text-sm font-semibold uppercase tracking-wide text-(--color-text) px-4 py-3 rounded-lg border border-(--color-border)"
             >
               Contact
+            </Link>
+
+            <Link
+              href="/signup"
+              onClick={() => setOpen(false)}
+              className="w-full text-center text-sm font-semibold uppercase tracking-wide text-(--color-text) px-4 py-3 rounded-lg border border-(--color-border)"
+            >
+              Log in
             </Link>
 
             <Link
