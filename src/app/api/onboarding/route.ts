@@ -58,7 +58,6 @@ export async function POST(req: NextRequest) {
       mode: 'subscription',
       payment_method_types: ['card'],
       customer_email: email,
-      payment_method_collection: 'if_required',
       line_items: [
         {
           price: process.env.STRIPE_PRICE_ID!,
