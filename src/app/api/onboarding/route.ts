@@ -12,6 +12,7 @@ const OnboardingSchema = z.object({
   email: z.string().email(),
   notification_phone: z.string().min(1),
   services: z.string().min(1),
+  notification_channel: z.enum(['sms', 'whatsapp']).default('sms'),
   terms_accepted: z.boolean().refine(val => val === true),
 })
 

@@ -82,8 +82,8 @@ export async function POST(req: NextRequest) {
       ].join('\n')
 
       await sendLeadSMS(callerNumber, demoMessage)
-
-      console.log('Demo call handled — SMS sent to:', callerNumber)
+      await sendLeadWhatsApp(callerNumber, demoMessage)
+      console.log('Demo call handled — SMS + WhatsApp sent to:', callerNumber)
       return NextResponse.json({ success: true })
     }
 
@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
       .update({ notification_sent: true })
       .eq('vapi_call_id', vapiCallId)
 
-    console.log('Success — SMS sent to:', customer.real_phone)
+    console.log(`Success — ${customer.notification_channel} sent to:`, customer.real_phone)
     return NextResponse.json({ success: true })
 
   } catch (err) {
