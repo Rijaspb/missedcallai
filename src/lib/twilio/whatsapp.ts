@@ -8,7 +8,7 @@ const client = twilio(
 export async function sendLeadWhatsApp(to: string, message: string) {
   return client.messages.create({
     body: message,
-    from: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER!}`,
+    from: `whatsapp:${process.env.TWILIO_FROM_NUMBER!}`,
     to: `whatsapp:${to}`,
   })
 }

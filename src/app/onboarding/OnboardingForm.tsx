@@ -14,8 +14,8 @@ export default function OnboardingForm({ defaultPhone }: Props) {
     email: '',
     notification_phone: defaultPhone,
     services: '',
-    custom_greeting: '',
     terms_accepted: false,
+    notification_channel: 'sms' as 'sms' | 'whatsapp',
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -128,6 +128,30 @@ export default function OnboardingForm({ defaultPhone }: Props) {
           className={inputClass}
           style={inputStyle}
         />
+      </div>
+
+      <div>
+        <label className={labelClass} style={labelStyle}>Notification method *</label>
+        <div className="flex gap-3">
+          {(['sms', 'whatsapp'] as const).map(channel => (
+            <button
+              key={channel}
+              type="button"
+              onClick={() => setForm(prev => ({ ...prev, notification_channel: channel }))}
+              className="flex-1 py-3 text-sm font-semibold uppercase tracking-widest border transition-colors"
+              style={{
+                borderColor: form.notification_channel === channel
+                  ? 'var(--color-accent)'
+                  : 'var(--color-border-2)',
+                color: form.notification_channel === channel
+                  ? 'var(--color-accent)'
+                  : 'var(--color-muted)',
+              }}
+            >
+              {channel === 'sms' ? 'SMS' : 'WhatsApp'}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="flex items-start gap-3 pt-2">
