@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 const NAV_LINKS = [
+  { href: '/blog', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
   { href: '/privacy', label: 'Privacy Policy', external: true },
   { href: '/terms', label: 'Terms of Service', external: true },

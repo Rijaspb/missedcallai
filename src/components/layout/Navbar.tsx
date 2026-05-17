@@ -25,6 +25,14 @@ export function Navbar() {
           >
             Free Tool
           </Link>
+
+          <Link
+            href="/blog"
+            className="text-sm font-semibold uppercase tracking-wide text-(--color-muted) hover:text-(--color-text) px-3 py-2"
+          >
+            Blog
+          </Link>
+
           <Link
             href="/contact"
             className="text-sm font-semibold uppercase tracking-wide text-(--color-muted) hover:text-(--color-text) px-3 py-2"
@@ -70,6 +78,14 @@ export function Navbar() {
               className="w-full text-center text-sm font-semibold uppercase tracking-wide text-(--color-text) px-4 py-3 rounded-lg border border-(--color-border)"
             >
               Free Tool
+            </Link>
+
+            <Link
+              href="/blog"
+              onClick={() => setOpen(false)}
+              className="w-full text-center text-sm font-semibold uppercase tracking-wide text-(--color-text) px-4 py-3 rounded-lg border border-(--color-border)"
+            >
+              Blog
             </Link>
 
             <Link
