@@ -37,8 +37,8 @@ async function importNumberToVapi(twilioNumber: string, businessName: string, se
       assistantId: process.env.VAPI_ASSISTANT_ID!,
       assistantOverrides: {
         variableValues: {
-          businessName,
-          services,
+          businessName: businessName || 'MissedCallAI Demo',
+          services: services || 'general trade services',
         },
       },
     }),
