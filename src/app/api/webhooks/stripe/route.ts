@@ -35,6 +35,12 @@ async function importNumberToVapi(twilioNumber: string, businessName: string, se
       twilioAccountSid: process.env.TWILIO_ACCOUNT_SID!,
       twilioAuthToken: process.env.TWILIO_AUTH_TOKEN!,
       assistantId: process.env.VAPI_ASSISTANT_ID!,
+      assistantOverrides: {
+        variableValues: {
+          businessName,
+          services,
+        },
+      },
     }),
   })
 
