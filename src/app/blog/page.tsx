@@ -18,15 +18,10 @@ export default function BlogIndex() {
       <Navbar />
       <main className="min-h-screen bg-(--color-bg) text-(--color-text) px-4 py-16">
         <div className="max-w-2xl mx-auto">
-          <p className="text-(--color-accent) text-xs font-medium tracking-widest uppercase mb-3">
-            Blog
-          </p>
-          <h1 className="font-['Barlow_Condensed'] text-4xl font-semibold mb-3">
-            Advice for UK Tradespeople
+          
+          <h1 className="text-(--color-accent) font-['Barlow_Condensed'] text-4xl font-semibold mb-3">
+            BLOG
           </h1>
-          <p className="text-(--color-muted) text-sm mb-12">
-            Free guides on running a better trade business.
-          </p>
 
           {posts.length === 0 && (
             <p className="text-(--color-muted) text-sm">Posts coming soon.</p>
