@@ -13,8 +13,8 @@ export async function POST(req: NextRequest) {
 
   if (twilioNumberCalled === process.env.DEMO_TWILIO_NUMBER) {
     return NextResponse.json(buildAssistantResponse(
-      'this business',
-      'general trade services'
+      'MissedCallAI Demo',
+      'trade services'
     ))
   }
 
