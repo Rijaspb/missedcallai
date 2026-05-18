@@ -34,13 +34,7 @@ async function importNumberToVapi(twilioNumber: string, businessName: string, se
       number: twilioNumber,
       twilioAccountSid: process.env.TWILIO_ACCOUNT_SID!,
       twilioAuthToken: process.env.TWILIO_AUTH_TOKEN!,
-      assistantId: process.env.VAPI_ASSISTANT_ID!,
-      assistantOverrides: {
-        variableValues: {
-          businessName: businessName || 'MissedCallAI Demo',
-          services: services || 'general trade services',
-        },
-      },
+      serverUrl: `${process.env.NEXT_PUBLIC_APP_URL}/api/vapi/assistant`,
     }),
   })
 
